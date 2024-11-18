@@ -12,6 +12,13 @@
         <div class="dancer" id="dancer2"></div>
         <div class="dancer" id="dancer3"></div>
     </div>
+    <div id="music-controls">
+        <input type="file" id="upload-music" accept="audio/*">
+        <button id="play-btn">Play</button>
+        <button id="pause-btn">Pause</button>
+        <span id="current-time">00:00</span> / <span id="total-duration">00:00</span>
+    </div>
+    <audio id="audio" hidden></audio>
     <script src="script.js"></script>
 </body>
 </html>
