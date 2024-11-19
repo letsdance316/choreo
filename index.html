@@ -5,33 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dance Choreography Tool</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r148/three.min.js"></script>
 </head>
 <body>
-    <div id="stage">
-        <div class="dancer" id="dancer1">
-            <div class="head"></div>
-            <div class="torso"></div>
-            <div class="arm left"></div>
-            <div class="arm right"></div>
-            <div class="leg left"></div>
-            <div class="leg right"></div>
-        </div>
-        <div class="dancer" id="dancer2">
-            <div class="head"></div>
-            <div class="torso"></div>
-            <div class="arm left"></div>
-            <div class="arm right"></div>
-            <div class="leg left"></div>
-            <div class="leg right"></div>
-        </div>
+    <div id="controls">
+        <input type="file" id="audioInput" accept="audio/*">
+        <button id="playButton">Play Music</button>
+        <button id="pauseButton">Pause Music</button>
     </div>
-    <div id="music-controls">
-        <input type="file" id="upload-music" accept="audio/*">
-        <button id="play-btn">Play</button>
-        <button id="pause-btn">Pause</button>
-        <span id="current-time">00:00</span> / <span id="total-duration">00:00</span>
-    </div>
-    <audio id="audio" hidden></audio>
+    <div id="stage"></div>
     <script src="script.js"></script>
 </body>
 </html>
