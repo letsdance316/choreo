@@ -3,7 +3,7 @@ if (typeof THREE === 'undefined') {
 } else {
     console.log('THREE.js loaded successfully');
 
-    // Create a basic scene
+    // Create a scene
     const scene = new THREE.Scene();
 
     // Set up a camera
@@ -23,7 +23,11 @@ if (typeof THREE === 'undefined') {
     // Set the camera position
     camera.position.z = 5;
 
-    // Animation loop
+    // Create an ambient light to make the scene brighter
+    const light = new THREE.AmbientLight(0x404040); // Ambient light with soft white color
+    scene.add(light);
+
+    // Animation loop to rotate the cube and render the scene
     function animate() {
         requestAnimationFrame(animate);
 
@@ -37,4 +41,11 @@ if (typeof THREE === 'undefined') {
 
     // Start the animation
     animate();
+
+    // Handle window resize events
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
 }
