@@ -1,4 +1,4 @@
-// Script for dancer placement and music player
+// Script for stick figure dancers and syncing moves with music
 
 window.onload = function() {
     const dancers = document.querySelectorAll('.dancer');
@@ -6,7 +6,7 @@ window.onload = function() {
     // Function to place dancers randomly on the stage
     dancers.forEach(dancer => {
         const x = Math.random() * (document.getElementById('stage').offsetWidth - 50);
-        const y = Math.random() * (document.getElementById('stage').offsetHeight - 50);
+        const y = Math.random() * (document.getElementById('stage').offsetHeight - 100);
 
         dancer.style.left = `${x}px`;
         dancer.style.top = `${y}px`;
@@ -20,6 +20,12 @@ const pauseBtn = document.getElementById('pause-btn');
 const uploadMusic = document.getElementById('upload-music');
 const currentTimeElem = document.getElementById('current-time');
 const totalDurationElem = document.getElementById('total-duration');
+
+// Moves to sync
+const moves = [
+    { time: 2, dancer: 'dancer1', move: 'jump' },
+    { time: 5, dancer: 'dancer2', move: 'spin' },
+];
 
 // Load uploaded audio file
 uploadMusic.addEventListener('change', (event) => {
@@ -41,11 +47,15 @@ pauseBtn.addEventListener('click', () => audio.pause());
 // Update current time
 audio.addEventListener('timeupdate', () => {
     currentTimeElem.textContent = formatTime(audio.currentTime);
+
+    // Execute moves at specific times
+    moves.forEach(({ time, dancer, move }) => {
+        if (Math.floor(audio.currentTime) === time) {
+            performMove(dancer, move);
+        }
+    });
 });
 
-// Format time as MM:SS
-function formatTime(seconds) {
-    const minutes = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-}
+// Perform a move
+function performMove(dancerId, move) {
+    const dancer = document.getElementB
