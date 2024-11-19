@@ -68,13 +68,16 @@ body {
 
 .dancer .leg.left {
     left: calc(50% - 8px);
-    transform: rotate(20deg); /* Fixed leg orientation */
+    transform-origin: top center;
+    transform: rotate(-20deg); /* Adjusted rotation */
 }
 
 .dancer .leg.right {
     left: calc(50% + 4px);
-    transform: rotate(-20deg); /* Fixed leg orientation */
+    transform-origin: top center;
+    transform: rotate(20deg); /* Adjusted rotation */
 }
+
 
 /* Music controls styles */
 #music-controls {
