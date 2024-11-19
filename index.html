@@ -4,16 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dance Choreography Tool</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r148/three.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        #stage {
+            width: 100%;
+            height: 100vh;
+        }
+    </style>
 </head>
 <body>
+    <div id="stage"></div>
     <div id="controls">
         <input type="file" id="audioInput" accept="audio/*">
         <button id="playButton">Play Music</button>
         <button id="pauseButton">Pause Music</button>
+        <button id="addDancerButton">Add Dancer</button>
     </div>
-    <div id="stage"></div>
-    <script src="script.js"></script>
+
+    <!-- Load Three.js before your script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r148/three.min.js"></script>
+    <script src="script.js"></script>  <!-- Your script after Three.js -->
 </body>
 </html>
