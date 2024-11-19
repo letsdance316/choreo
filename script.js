@@ -7,7 +7,7 @@ if (typeof THREE === 'undefined') {
     const scene = new THREE.Scene();
 
     // Change background to a light blue to simulate a stage lighting atmosphere
-    scene.background = new THREE.Color(0x87CEEB); // Light blue background, change as needed
+    scene.background = new THREE.Color(0xD3D3D3); // Light blue background, change as needed
 
     // Create the camera
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
