@@ -16,16 +16,16 @@ if (typeof THREE === 'undefined') {
 
     // Create a cube
     const geometry = new THREE.BoxGeometry();
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const material = new THREE.MeshBasicMaterial({ color: 0xff0000 }); // Red cube
     const cube = new THREE.Mesh(geometry, material);
     scene.add(cube);
 
     console.log('Cube added to the scene');
 
     // Set the camera position
-    camera.position.z = 5;
+    camera.position.z = 10;
 
-    // Add basic ambient light
+    // Add basic ambient light (optional)
     const light = new THREE.AmbientLight(0x404040); // Ambient light
     scene.add(light);
 
@@ -33,7 +33,7 @@ if (typeof THREE === 'undefined') {
     function animate() {
         requestAnimationFrame(animate);
 
-        console.log('Animating...'); // Check if animation loop is running
+        console.log('Animating...'); // Debug log to see if animation loop is running
 
         // Rotate the cube
         cube.rotation.x += 0.01;
