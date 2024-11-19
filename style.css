@@ -1,107 +1,20 @@
-/* General styles */
 body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
 }
 
-/* Stage styles */
+#controls {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+    display: flex;
+    gap: 10px;
+}
+
 #stage {
-    width: 80%;
-    height: 60%;
-    background-color: #d9d9d9;
-    border: 2px solid #333;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    position: relative;
+    width: 100vw;
+    height: 100vh;
     overflow: hidden;
-    border-radius: 10px;
-}
-
-/* Dancer styles */
-.dancer {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transform-origin: top center;
-}
-
-/* Head */
-.head {
-    width: 40px;
-    height: 40px;
-    background-color: #f1c40f;
-    border-radius: 50%;
-    position: relative;
-}
-
-/* Torso */
-.torso {
-    width: 30px;
-    height: 70px;
-    background-color: #3498db;
-    position: relative;
-    margin-top: -10px;
-}
-
-/* Arms */
-.arm {
-    width: 12px;
-    height: 50px;
-    background-color: #f1c40f;
-    position: absolute;
-    top: 20px;
-    border-radius: 10px;
-    transform-origin: top center;
-}
-
-.arm.left {
-    left: -20px;
-    transform: rotate(20deg);
-}
-
-.arm.right {
-    right: -20px;
-    transform: rotate(-20deg);
-}
-
-/* Legs */
-.leg {
-    width: 14px;
-    height: 60px;
-    background-color: #34495e;
-    position: absolute;
-    top: 70px; /* Aligned with bottom of the torso */
-    border-radius: 10px;
-    transform-origin: top center;
-}
-
-.leg.left {
-    left: -10px;
-    transform: rotate(15deg);
-}
-
-.leg.right {
-    right: -10px;
-    transform: rotate(-15deg);
-}
-
-/* Music controls */
-#music-controls {
-    margin-top: 20px;
-    text-align: center;
-}
-
-button {
-    margin: 0 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
+    background: #333;
 }
