@@ -71,18 +71,68 @@ if (typeof THREE === 'undefined') {
     const light = new THREE.AmbientLight(0x404040); // Soft ambient light
     scene.add(light);
 
-    // Animation loop
-    function animate() {
-        requestAnimationFrame(animate);
+    // Set up the music
+    let audio = new Audio();
+    let audioDuration = 0;
+    let isPlaying = false;
 
-        // Rotate the dancer to give some animation
-        dancer.rotation.y += 0.01; // Rotate the whole dancer group
-        dancer.rotation.x += 0.005; // Slightly rotate the dancer for some variety
+    // Get DOM elements
+    const playButton = document.getElementById('playButton');
+    const pauseButton = document.getElementById('pauseButton');
+    const currentTimeSpan = document.getElementById('currentTime');
+    const durationSpan = document.getElementById('duration');
 
-        renderer.render(scene, camera);
+    // Handle file input to load audio
+    document.getElementById('audioFile').addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const url = URL.createObjectURL(file);
+            audio.src = url;
+            audio.load();
+            audio.addEventListener('loadedmetadata', () => {
+                audioDuration = audio.duration;
+                durationSpan.innerText = formatTime(audioDuration);
+            });
+        }
+    });
+
+    // Play audio
+    playButton.addEventListener('click', () => {
+        if (audio.src) {
+            audio.play();
+            isPlaying = true;
+        }
+    });
+
+    // Pause audio
+    pauseButton.addEventListener('click', () => {
+        audio.pause();
+        isPlaying = false;
+    });
+
+    // Format time as mm:ss
+    function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs < 10 ? '0' + secs : secs}`;
     }
 
-    animate();
+    // Update time display and sync dance moves
+    function update() {
+        if (isPlaying && audio.currentTime !== undefined) {
+            currentTimeSpan.innerText = formatTime(audio.currentTime);
+        }
+
+        // Example of syncing dancer's movements with music
+        if (audio.currentTime >= 5 && audio.currentTime < 10) {
+            dancer.rotation.y = Math.sin(audio.currentTime); // Rotate dancer between 5s and 10s
+        }
+
+        renderer.render(scene, camera);
+        requestAnimationFrame(update);
+    }
+
+    update();
 
     // Handle window resizing to keep the scene responsive
     window.addEventListener('resize', () => {
