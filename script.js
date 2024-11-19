@@ -3,8 +3,8 @@ window.onload = function() {
 
     // Position dancers randomly on the stage
     dancers.forEach((dancer) => {
-        const x = Math.random() * (document.getElementById('stage').offsetWidth - 50);
-        const y = Math.random() * (document.getElementById('stage').offsetHeight - 150);
+        const x = Math.random() * (document.getElementById('stage').offsetWidth - 100);
+        const y = Math.random() * (document.getElementById('stage').offsetHeight - 200);
         dancer.style.left = `${x}px`;
         dancer.style.top = `${y}px`;
     });
