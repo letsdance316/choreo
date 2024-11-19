@@ -92,6 +92,7 @@ if (typeof THREE === 'undefined') {
             audio.addEventListener('loadedmetadata', () => {
                 audioDuration = audio.duration;
                 durationSpan.innerText = formatTime(audioDuration);
+                console.log('Audio loaded: ', audio.src); // Debug log
             });
         }
     });
@@ -101,6 +102,7 @@ if (typeof THREE === 'undefined') {
         if (audio.src) {
             audio.play();
             isPlaying = true;
+            console.log('Audio playing'); // Debug log
         }
     });
 
@@ -108,6 +110,7 @@ if (typeof THREE === 'undefined') {
     pauseButton.addEventListener('click', () => {
         audio.pause();
         isPlaying = false;
+        console.log('Audio paused'); // Debug log
     });
 
     // Format time as mm:ss
@@ -121,11 +124,13 @@ if (typeof THREE === 'undefined') {
     function update() {
         if (isPlaying && audio.currentTime !== undefined) {
             currentTimeSpan.innerText = formatTime(audio.currentTime);
+            console.log('Current time: ', audio.currentTime); // Debug log
         }
 
         // Example of syncing dancer's movements with music
         if (audio.currentTime >= 5 && audio.currentTime < 10) {
             dancer.rotation.y = Math.sin(audio.currentTime); // Rotate dancer between 5s and 10s
+            console.log('Dancer rotation synced: ', dancer.rotation.y); // Debug log
         }
 
         renderer.render(scene, camera);
