@@ -63,19 +63,20 @@ body {
     height: 30px;
     background-color: #000;
     position: absolute;
-    top: 50px; /* Adjusted to connect with the bottom of the torso */
-    transform-origin: top center; /* Ensures rotation pivots correctly */
+    top: 60px; /* Matches the bottom of the torso (head + body height = 60px) */
+    transform-origin: top center; /* Correct pivot for rotation */
 }
 
 .dancer .leg.left {
-    left: calc(50% - 12px); /* Positioned slightly left of the torso */
-    transform: rotate(10deg); /* Slight outward rotation */
+    left: calc(50% - 12px); /* Position slightly left of the torso */
+    transform: rotate(15deg); /* Adjusted outward angle */
 }
 
 .dancer .leg.right {
-    left: calc(50% + 8px); /* Positioned slightly right of the torso */
-    transform: rotate(-10deg); /* Slight outward rotation */
+    left: calc(50% + 8px); /* Position slightly right of the torso */
+    transform: rotate(-15deg); /* Adjusted outward angle */
 }
+
 
 
 
