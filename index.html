@@ -8,11 +8,19 @@
 </head>
 <body>
     <div id="stage"></div> <!-- Where Three.js will render the 3D content -->
+    
+    <!-- Music Player and Time Display -->
+    <div id="controls">
+        <input type="file" id="audioFile" accept="audio/*" />
+        <button id="playButton">Play</button>
+        <button id="pauseButton">Pause</button>
+        <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+    </div>
 
     <!-- Load the three.js library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r110/three.min.js"></script> <!-- Ensure the version matches what you're using -->
 
     <!-- Link to your script.js -->
-    <script src="script.js"></script> 
+    <script src="script.js"></script>
 </body>
 </html>
