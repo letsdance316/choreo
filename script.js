@@ -7,7 +7,7 @@ if (typeof THREE === 'undefined') {
     const scene = new THREE.Scene();
 
     // Change background color to light blue
-    scene.background = new THREE.Color(0x87CEEB); // Light blue
+    scene.background = new THREE.Color(0x87CEEB); // Light blue background
 
     // Create the camera
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -25,14 +25,14 @@ if (typeof THREE === 'undefined') {
 
     // Head (Sphere)
     const headGeometry = new THREE.SphereGeometry(0.5, 32, 32);
-    const headMaterial = new THREE.MeshBasicMaterial({ color: 0xFFD700 });
+    const headMaterial = new THREE.MeshBasicMaterial({ color: 0xFFD700 }); // Yellow head
     const head = new THREE.Mesh(headGeometry, headMaterial);
     head.position.set(0, 2, 0); // Position the head above the body
     dancer.add(head);
 
     // Torso (Capsule-like shape using a stretched sphere)
     const torsoGeometry = new THREE.SphereGeometry(0.4, 32, 32);
-    const torsoMaterial = new THREE.MeshBasicMaterial({ color: 0x0000FF });
+    const torsoMaterial = new THREE.MeshBasicMaterial({ color: 0x0000FF }); // Blue torso
     const torso = new THREE.Mesh(torsoGeometry, torsoMaterial);
     torso.scale.set(1, 2, 1); // Make it taller (like a torso)
     torso.position.set(0, 1, 0); // Position the torso below the head
@@ -40,7 +40,7 @@ if (typeof THREE === 'undefined') {
 
     // Legs (Cylinder shapes for thighs and lower legs)
     const legGeometry = new THREE.CylinderGeometry(0.2, 0.2, 2, 32);
-    const legMaterial = new THREE.MeshBasicMaterial({ color: 0x0000FF });
+    const legMaterial = new THREE.MeshBasicMaterial({ color: 0x0000FF }); // Blue legs
 
     const leg1 = new THREE.Mesh(legGeometry, legMaterial);
     leg1.position.set(-0.3, 0, 0); // Left leg
@@ -52,7 +52,7 @@ if (typeof THREE === 'undefined') {
 
     // Arms (Cylinder shapes for arms)
     const armGeometry = new THREE.CylinderGeometry(0.1, 0.1, 2, 32);
-    const armMaterial = new THREE.MeshBasicMaterial({ color: 0x0000FF });
+    const armMaterial = new THREE.MeshBasicMaterial({ color: 0x0000FF }); // Blue arms
 
     const arm1 = new THREE.Mesh(armGeometry, armMaterial);
     arm1.position.set(-1, 1.5, 0); // Left arm
