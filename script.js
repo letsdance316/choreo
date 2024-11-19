@@ -16,16 +16,27 @@ if (typeof THREE === 'undefined') {
 
     // Create a cube
     const geometry = new THREE.BoxGeometry();
-    const material = new THREE.MeshBasicMaterial({ color: 0xff0000 }); // Red cube
+    const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
     const cube = new THREE.Mesh(geometry, material);
     scene.add(cube);
-
-    console.log('Cube added to the scene');
 
     // Set the camera position
     camera.position.z = 10;
 
-    // Add basic ambient light (optional)
+    // Create a dancer (using a simple sphere and cylinder for now)
+    const dancerGeometry = new THREE.SphereGeometry(0.5, 16, 16); // Head of the dancer
+    const dancerMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const dancerHead = new THREE.Mesh(dancerGeometry, dancerMaterial);
+    dancerHead.position.set(0, 2, 0); // Position the head above the body
+
+    const bodyGeometry = new THREE.CylinderGeometry(0.2, 0.2, 2); // Body of the dancer
+    const body = new THREE.Mesh(bodyGeometry, dancerMaterial);
+    body.position.set(0, 0, 0); // Position the body
+
+    scene.add(dancerHead);
+    scene.add(body);
+
+    // Add light
     const light = new THREE.AmbientLight(0x404040); // Ambient light
     scene.add(light);
 
@@ -33,17 +44,16 @@ if (typeof THREE === 'undefined') {
     function animate() {
         requestAnimationFrame(animate);
 
-        console.log('Animating...'); // Debug log to see if animation loop is running
-
-        // Rotate the cube
+        // Rotate the cube and dancer for demo purposes
         cube.rotation.x += 0.01;
         cube.rotation.y += 0.01;
+        
+        dancerHead.rotation.y += 0.01; // Rotate the head
+        body.rotation.y += 0.01; // Rotate the body
 
-        // Render the scene
         renderer.render(scene, camera);
     }
 
-    // Start the animation loop
     animate();
 
     // Handle window resizing
