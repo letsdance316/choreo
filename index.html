@@ -13,6 +13,12 @@
             width: 100%;
             height: 100vh;
         }
+        #controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+        }
     </style>
 </head>
 <body>
@@ -24,8 +30,10 @@
         <button id="addDancerButton">Add Dancer</button>
     </div>
 
-    <!-- Load Three.js before your script -->
+    <!-- Load Three.js version r110 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r110/three.min.js"></script>
-    <script src="script.js"></script>  <!-- Your script after Three.js -->
+    
+    <!-- Your script (add this after Three.js) -->
+    <script src="script.js"></script>
 </body>
 </html>
