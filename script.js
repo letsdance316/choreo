@@ -58,4 +58,29 @@ audio.addEventListener('timeupdate', () => {
 
 // Perform a move
 function performMove(dancerId, move) {
-    const dancer = document.getElementB
+    const dancer = document.getElementById(dancerId);
+    if (move === 'jump') {
+        dancer.style.transform = 'translateY(-50px)';
+        setTimeout(() => dancer.style.transform = '', 500);
+    } else if (move === 'spin') {
+        dancer.style.animation = 'spin 1s linear';
+        setTimeout(() => dancer.style.animation = '', 1000);
+    }
+}
+
+// Add a spin animation in CSS
+const style = document.createElement('style');
+style.innerHTML = `
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+`;
+document.head.appendChild(style);
+
+// Format time as MM:SS
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+}
