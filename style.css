@@ -27,66 +27,70 @@ body {
 /* Dancer styles */
 .dancer {
     position: absolute;
-    width: 40px;
-    height: 120px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    transform-origin: top center;
 }
 
+/* Head */
 .head {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     background-color: #f1c40f;
     border-radius: 50%;
     position: relative;
-    top: 0;
 }
 
+/* Torso */
 .torso {
-    width: 20px;
-    height: 50px;
+    width: 30px;
+    height: 70px;
     background-color: #3498db;
     position: relative;
-    top: 30px;
+    margin-top: -10px;
 }
 
+/* Arms */
 .arm {
-    width: 10px;
-    height: 40px;
+    width: 12px;
+    height: 50px;
     background-color: #f1c40f;
     position: absolute;
-    border-radius: 5px;
+    top: 20px;
+    border-radius: 10px;
     transform-origin: top center;
 }
 
 .arm.left {
-    left: -15px;
-    transform: rotate(10deg);
+    left: -20px;
+    transform: rotate(20deg);
 }
 
 .arm.right {
-    right: -15px;
-    transform: rotate(-10deg);
+    right: -20px;
+    transform: rotate(-20deg);
 }
 
+/* Legs */
 .leg {
-    width: 12px;
-    height: 50px;
+    width: 14px;
+    height: 60px;
     background-color: #34495e;
     position: absolute;
-    border-radius: 5px;
+    top: 70px; /* Aligned with bottom of the torso */
+    border-radius: 10px;
     transform-origin: top center;
 }
 
 .leg.left {
-    left: -5px;
-    transform: rotate(10deg);
+    left: -10px;
+    transform: rotate(15deg);
 }
 
 .leg.right {
-    right: -5px;
-    transform: rotate(-10deg);
+    right: -10px;
+    transform: rotate(-15deg);
 }
 
 /* Music controls */
