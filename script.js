@@ -6,8 +6,8 @@ if (typeof THREE === 'undefined') {
     // Create the scene
     const scene = new THREE.Scene();
 
-    // Change background color to light blue
-    scene.background = new THREE.Color(0x87CEEB); // Light blue background
+    // Change background to a light blue to simulate a stage lighting atmosphere
+    scene.background = new THREE.Color(0x87CEEB); // Light blue background, change as needed
 
     // Create the camera
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -67,16 +67,30 @@ if (typeof THREE === 'undefined') {
     // Add the dancer group to the scene
     scene.add(dancer);
 
-    // Add ambient light to the scene
+    // ** Add the stage floor (ground plane) **
+    const floorGeometry = new THREE.PlaneGeometry(100, 100); // Large floor
+    const floorMaterial = new THREE.MeshBasicMaterial({ color: 0x808080, side: THREE.DoubleSide }); // Gray floor
+    const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+    floor.rotation.x = - Math.PI / 2; // Rotate the floor to make it horizontal
+    floor.position.y = -2; // Position it under the dancer
+    scene.add(floor);
+
+    // ** Add Lighting **
     const light = new THREE.AmbientLight(0x404040); // Soft ambient light
     scene.add(light);
+
+    const spotLight = new THREE.SpotLight(0xffffff);
+    spotLight.position.set(0, 5, 5); // Position the spotlight above the dancer
+    spotLight.target = dancer; // Point it towards the dancer
+    spotLight.castShadow = true; // Enable shadows
+    scene.add(spotLight);
 
     // Set up the music
     let audio = new Audio();
     let audioDuration = 0;
     let isPlaying = false;
 
-    // Get DOM elements
+    // Get DOM elements for play/pause and time display
     const playButton = document.getElementById('playButton');
     const pauseButton = document.getElementById('pauseButton');
     const currentTimeSpan = document.getElementById('currentTime');
