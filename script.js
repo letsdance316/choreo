@@ -12,7 +12,7 @@ if (typeof THREE === 'undefined') {
     // Create the renderer
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
+    document.getElementById('stage').appendChild(renderer.domElement);
 
     // Create a cube
     const geometry = new THREE.BoxGeometry();
@@ -21,22 +21,23 @@ if (typeof THREE === 'undefined') {
     scene.add(cube);
 
     // Set the camera position
-    camera.position.z = 10;
+    camera.position.z = 5;
 
-    // Create a dancer (using a simple sphere and cylinder for now)
-    const dancerGeometry = new THREE.SphereGeometry(0.5, 16, 16); // Head of the dancer
-    const dancerMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    const dancerHead = new THREE.Mesh(dancerGeometry, dancerMaterial);
-    dancerHead.position.set(0, 2, 0); // Position the head above the body
+    // Create a dancer (using a sphere for the head and a cylinder for the body)
+    const dancerHeadGeometry = new THREE.SphereGeometry(0.5, 32, 32);
+    const dancerHeadMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const dancerHead = new THREE.Mesh(dancerHeadGeometry, dancerHeadMaterial);
+    dancerHead.position.set(0, 1, 0); // Position the head
 
-    const bodyGeometry = new THREE.CylinderGeometry(0.2, 0.2, 2); // Body of the dancer
-    const body = new THREE.Mesh(bodyGeometry, dancerMaterial);
-    body.position.set(0, 0, 0); // Position the body
+    const dancerBodyGeometry = new THREE.CylinderGeometry(0.2, 0.2, 2, 32);
+    const dancerBodyMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const dancerBody = new THREE.Mesh(dancerBodyGeometry, dancerBodyMaterial);
+    dancerBody.position.set(0, 0, 0); // Position the body
 
     scene.add(dancerHead);
-    scene.add(body);
+    scene.add(dancerBody);
 
-    // Add light
+    // Add ambient light
     const light = new THREE.AmbientLight(0x404040); // Ambient light
     scene.add(light);
 
@@ -44,12 +45,13 @@ if (typeof THREE === 'undefined') {
     function animate() {
         requestAnimationFrame(animate);
 
-        // Rotate the cube and dancer for demo purposes
+        // Rotate the cube
         cube.rotation.x += 0.01;
         cube.rotation.y += 0.01;
-        
-        dancerHead.rotation.y += 0.01; // Rotate the head
-        body.rotation.y += 0.01; // Rotate the body
+
+        // Rotate the dancer
+        dancerHead.rotation.y += 0.01;
+        dancerBody.rotation.y += 0.01;
 
         renderer.render(scene, camera);
     }
