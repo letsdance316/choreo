@@ -24,26 +24,12 @@ const stage = new THREE.Mesh(stageGeometry, stageMaterial);
 stage.rotation.x = -Math.PI / 2;
 scene.add(stage);
 
-// Load the Model
-const loader = new THREE.GLTFLoader();
-let dancers = [];
+const geometry = new THREE.BoxGeometry();
+const material = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
+const cube = new THREE.Mesh(geometry, material);
+cube.position.y = 0.5; // Adjust height
+scene.add(cube);
 
-function addDancer() {
-    loader.load(
-        './models/female_base.glb',
-        (gltf) => {
-            const model = gltf.scene;
-            model.scale.set(0.5, 0.5, 0.5); // Adjust size
-            model.position.set(0, 0, 0); // Initial position
-            scene.add(model);
-            dancers.push(model);
-        },
-        undefined,
-        (error) => {
-            console.error('Error loading model:', error);
-        }
-    );
-}
 
 // Add UI Functionality
 document.getElementById('addDancer').addEventListener('click', () => {
