@@ -9,13 +9,16 @@
 <body>
     <h1>Dance Choreography Tool</h1>
     <div id="controls">
-        <input type="file" id="audioFile" accept="audio/*">
-        <button id="playMusic">Play Music</button>
-        <span id="currentTime">0:00</span>
+        <button id="addDancer">Add Dancer</button>
+        <div>
+            <label for="audioFile">Upload Music:</label>
+            <input type="file" id="audioFile" accept="audio/*" />
+            <button id="playMusic">Play Music</button>
+            <span id="currentTime">0:00</span>
+        </div>
     </div>
-    <button id="addDancer">Add Dancer</button>
     <div id="stage"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r110/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r148/three.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
