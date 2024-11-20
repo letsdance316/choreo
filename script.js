@@ -57,4 +57,50 @@ document.getElementById("playMusic").addEventListener("click", async () => {
             audioSource = audioContext.createMediaElementSource(audio);
 
             analyser = audioContext.createAnalyser();
-            audioSource
+            audioSource.connect(analyser);
+            analyser.connect(audioContext.destination);
+
+            analyser.fftSize = 256;
+            const bufferLength = analyser.frequencyBinCount;
+            dataArray = new Uint8Array(bufferLength);
+        }
+
+        try {
+            await audioContext.resume(); // Ensure AudioContext is active
+            audio.play();
+            animateDancers();
+        } catch (err) {
+            console.error("AudioContext failed to resume:", err);
+        }
+    }
+});
+
+// Sync Dancers with Music
+function animateDancers() {
+    if (analyser) {
+        analyser.getByteFrequencyData(dataArray);
+        dancers.forEach((dancer, index) => {
+            const scale = dataArray[index % dataArray.length] / 128.0;
+            dancer.scale.set(scale, scale, scale); // Scale dancer based on music data
+        });
+    }
+
+    // Update the current time display
+    if (audio) {
+        const currentTimeDisplay = document.getElementById("currentTime");
+        const minutes = Math.floor(audio.currentTime / 60);
+        const seconds = Math.floor(audio.currentTime % 60);
+        currentTimeDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, "0")}`;
+    }
+
+    if (audio && !audio.paused) {
+        requestAnimationFrame(animateDancers);
+    }
+}
+
+// Animation Loop for Three.js
+function animate() {
+    requestAnimationFrame(animate);
+    renderer.render(scene, camera);
+}
+animate();
