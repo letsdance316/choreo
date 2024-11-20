@@ -10,6 +10,10 @@ h1 {
     margin: 20px;
 }
 
+#controls {
+    margin: 10px;
+}
+
 #stage {
     width: 100vw;
     height: 80vh;
