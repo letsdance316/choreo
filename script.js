@@ -1,44 +1,43 @@
-// Set up the Scene
+// Basic Three.js Setup
+const stage = document.getElementById("stage");
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xe0e0e0); // Light gray background
+const camera = new THREE.PerspectiveCamera(75, stage.clientWidth / stage.clientHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(stage.clientWidth, stage.clientHeight);
+stage.appendChild(renderer.domElement);
 
-// Set up the Camera
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(0, 2, 5);
+// Create a floor (stage)
+const floorGeometry = new THREE.PlaneGeometry(10, 10);
+const floorMaterial = new THREE.MeshBasicMaterial({ color: 0xaaaaaa });
+const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+floor.rotation.x = -Math.PI / 2;
+scene.add(floor);
 
-// Set up Lights
+// Lighting
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
 scene.add(ambientLight);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
-directionalLight.position.set(5, 10, 7.5);
-scene.add(directionalLight);
+// Camera Position
+camera.position.set(0, 5, 10);
+camera.lookAt(0, 0, 0);
 
-// Set up Renderer
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+// Dancers Array
+const dancers = [];
 
-// Add a GLTF Loader
-const loader = new THREE.GLTFLoader();
+// Function to Create a New Dancer
+function createDancer() {
+    const dancerGeometry = new THREE.SphereGeometry(0.5, 16, 16); // Placeholder for a dancer
+    const dancerMaterial = new THREE.MeshBasicMaterial({ color: Math.random() * 0xffffff });
+    const dancer = new THREE.Mesh(dancerGeometry, dancerMaterial);
+    dancer.position.set(Math.random() * 8 - 4, 0.5, Math.random() * 8 - 4); // Random position on the stage
+    dancers.push(dancer);
+    scene.add(dancer);
+}
 
-// Load the model
-loader.load(
-    './models/female_base.glb',  // Make sure the path is correct
-    (gltf) => {
-        console.log('Model Loaded:', gltf);  // Log the loaded model to check if it’s loaded correctly
-        const model = gltf.scene;
-        model.scale.set(0.5, 0.5, 0.5); // Adjust size of the model
-        model.position.set(0, 0, 0); // Position model at the origin
-        scene.add(model); // Add the model to the scene
-    },
-    (xhr) => {
-        console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
-    }
-    (error) => {
-        console.error('Error loading model:', error);
-    }
-);
+// Add Dancer Button
+document.getElementById("addDancer").addEventListener("click", () => {
+    createDancer();
+});
 
 // Animation Loop
 function animate() {
@@ -46,6 +45,3 @@ function animate() {
     renderer.render(scene, camera);
 }
 animate();
-
-// Debugging Console Log
-console.log('Scene and Renderer successfully initialized.');
