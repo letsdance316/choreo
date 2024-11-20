@@ -46,18 +46,30 @@ document.getElementById("audioFile").addEventListener("change", (event) => {
     const file = event.target.files[0];
     if (file) {
         audio = new Audio(URL.createObjectURL(file));
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        audioSource = audioContext.createMediaElementSource(audio);
-
-        analyser = audioContext.createAnalyser();
-        audioSource.connect(analyser);
-        analyser.connect(audioContext.destination);
-
-        analyser.fftSize = 256;
-        const bufferLength = analyser.frequencyBinCount;
-        dataArray = new Uint8Array(bufferLength);
     }
 });
+
+document.getElementById("playMusic").addEventListener("click", () => {
+    if (audio) {
+        // Initialize AudioContext on user interaction
+        if (!audioContext) {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            audioSource = audioContext.createMediaElementSource(audio);
+
+            analyser = audioContext.createAnalyser();
+            audioSource.connect(analyser);
+            analyser.connect(audioContext.destination);
+
+            analyser.fftSize = 256;
+            const bufferLength = analyser.frequencyBinCount;
+            dataArray = new Uint8Array(bufferLength);
+        }
+
+        audio.play();
+        animateDancers();
+    }
+});
+
 
 document.getElementById("playMusic").addEventListener("click", () => {
     if (audio) {
