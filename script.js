@@ -32,7 +32,9 @@ loader.load(
         model.position.set(0, 0, 0); // Position model at the origin
         scene.add(model); // Add the model to the scene
     },
-    undefined,
+    (xhr) => {
+        console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+    }
     (error) => {
         console.error('Error loading model:', error);
     }
