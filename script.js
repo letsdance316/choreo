@@ -1,67 +1,11 @@
-// Create a basic stage setup with Three.js
+// Set up the scene, camera, and renderer
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// Create a simple floor (a flat plane for the dancer to stand on)
-const floorGeometry = new THREE.PlaneGeometry(10, 10);
-const floorMaterial = new THREE.MeshBasicMaterial({ color: 0xaaaaaa, side: THREE.DoubleSide });
-const floor = new THREE.Mesh(floorGeometry, floorMaterial);
-floor.rotation.x = Math.PI / 2;  // Rotate to make it flat
-scene.add(floor);
-
-// Create a humanoid dancer (head, torso, arms, legs)
-
-const headGeometry = new THREE.SphereGeometry(0.5, 32, 32);
-const headMaterial = new THREE.MeshBasicMaterial({ color: 0xffc0cb });
-const head = new THREE.Mesh(headGeometry, headMaterial);
-head.position.set(0, 2, 0);
-scene.add(head);
-
-const torsoGeometry = new THREE.BoxGeometry(1, 2, 0.5);
-const torsoMaterial = new THREE.MeshBasicMaterial({ color: 0x87cefa });
-const torso = new THREE.Mesh(torsoGeometry, torsoMaterial);
-torso.position.set(0, 0, 0);
-scene.add(torso);
-
-const armGeometry = new THREE.CylinderGeometry(0.15, 0.15, 1.5);
-const armMaterial = new THREE.MeshBasicMaterial({ color: 0xadd8e6 });
-const leftArm = new THREE.Mesh(armGeometry, armMaterial);
-leftArm.rotation.z = Math.PI / 2;
-leftArm.position.set(-1, 1, 0);
-scene.add(leftArm);
-
-const rightArm = new THREE.Mesh(armGeometry, armMaterial);
-rightArm.rotation.z = Math.PI / 2;
-rightArm.position.set(1, 1, 0);
-scene.add(rightArm);
-
-const legGeometry = new THREE.CylinderGeometry(0.2, 0.2, 2);
-const legMaterial = new THREE.MeshBasicMaterial({ color: 0x228b22 });
-const leftLeg = new THREE.Mesh(legGeometry, legMaterial);
-leftLeg.position.set(-0.5, -2, 0);
-scene.add(leftLeg);
-
-const rightLeg = new THREE.Mesh(legGeometry, legMaterial);
-rightLeg.position.set(0.5, -2, 0);
-scene.add(rightLeg);
-
-const footGeometry = new THREE.BoxGeometry(0.6, 0.2, 0.2);
-const footMaterial = new THREE.MeshBasicMaterial({ color: 0x8b4513 });
-const leftFoot = new THREE.Mesh(footGeometry, footMaterial);
-leftFoot.position.set(-0.5, -3, 0);
-scene.add(leftFoot);
-
-const rightFoot = new THREE.Mesh(footGeometry, footMaterial);
-rightFoot.position.set(0.5, -3, 0);
-scene.add(rightFoot);
-
-// Position the camera to view the scene
-camera.position.z = 5;
-
-// Music setup (Add your music file in the project directory)
+// Set up the music
 const listener = new THREE.AudioListener();
 camera.add(listener);
 
@@ -73,36 +17,89 @@ audioLoader.load('your-music-file.mp3', (buffer) => {
     audio.setVolume(0.5);
 });
 
-// Create play/pause buttons for the music
+// Set up the humanoid figure (simple 3D model)
+const bodyGeometry = new THREE.CylinderGeometry(0.5, 0.5, 3, 32); // Torso
+const bodyMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+body.position.y = 1.5;
+
+const headGeometry = new THREE.SphereGeometry(0.75, 32, 32); // Head
+const headMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff });
+const head = new THREE.Mesh(headGeometry, headMaterial);
+head.position.y = 3.75;
+
+const legGeometry = new THREE.CylinderGeometry(0.25, 0.25, 2, 32); // Legs
+const legMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+const leg1 = new THREE.Mesh(legGeometry, legMaterial);
+const leg2 = new THREE.Mesh(legGeometry, legMaterial);
+
+leg1.position.y = 0.5;
+leg2.position.y = 0.5;
+leg1.position.x = -0.5;
+leg2.position.x = 0.5;
+
+scene.add(body, head, leg1, leg2);
+
+// Set the camera position
+camera.position.z = 5;
+
+// Music controls (Play and Pause)
 const playButton = document.createElement('button');
 playButton.innerText = 'Play Music';
-playButton.style.position = 'absolute';
-playButton.style.top = '10px';
-playButton.style.left = '10px';
+playButton.id = 'play-button';
 document.body.appendChild(playButton);
 
 const pauseButton = document.createElement('button');
 pauseButton.innerText = 'Pause Music';
-pauseButton.style.position = 'absolute';
-pauseButton.style.top = '40px';
-pauseButton.style.left = '10px';
+pauseButton.id = 'pause-button';
 document.body.appendChild(pauseButton);
 
+const addDancerButton = document.createElement('button');
+addDancerButton.innerText = 'Add Dancer';
+addDancerButton.id = 'add-dancer-button';
+document.body.appendChild(addDancerButton);
+
+// Play and pause music event listeners
 playButton.addEventListener('click', () => {
-    audio.play();
+    if (audio.context.state === 'suspended') {
+        audio.context.resume().then(() => {
+            audio.play();
+        });
+    } else {
+        audio.play();
+    }
 });
 
 pauseButton.addEventListener('click', () => {
     audio.pause();
 });
 
-// Render loop to animate the scene
+// Add dancer functionality
+addDancerButton.addEventListener('click', () => {
+    console.log("Add dancer button clicked");
+    // You can add more dancers to the scene here
+    const newDancer = body.clone();
+    scene.add(newDancer);
+    newDancer.position.x = Math.random() * 2 - 1;
+    newDancer.position.z = Math.random() * 2 - 1;
+});
+
+// Animation loop
 function animate() {
     requestAnimationFrame(animate);
-
-    // You can add animations here (e.g., rotate the dancer's arms or legs)
-    
     renderer.render(scene, camera);
+
+    // Rotate the humanoid figure (and new dancers if any)
+    body.rotation.x += 0.01;
+    body.rotation.y += 0.01;
+
+    // Update the position of any new dancers
+    scene.children.forEach(child => {
+        if (child !== body && child !== head && child !== leg1 && child !== leg2) {
+            child.rotation.x += 0.01;
+            child.rotation.y += 0.01;
+        }
+    });
 }
 
 animate();
