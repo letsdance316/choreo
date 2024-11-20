@@ -39,7 +39,57 @@ document.getElementById("addDancer").addEventListener("click", () => {
     createDancer();
 });
 
-// Animation Loop
+// Music Functionality
+let audio, audioContext, audioSource, analyser, dataArray;
+
+document.getElementById("audioFile").addEventListener("change", (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        audio = new Audio(URL.createObjectURL(file));
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        audioSource = audioContext.createMediaElementSource(audio);
+
+        analyser = audioContext.createAnalyser();
+        audioSource.connect(analyser);
+        analyser.connect(audioContext.destination);
+
+        analyser.fftSize = 256;
+        const bufferLength = analyser.frequencyBinCount;
+        dataArray = new Uint8Array(bufferLength);
+    }
+});
+
+document.getElementById("playMusic").addEventListener("click", () => {
+    if (audio) {
+        audio.play();
+        animateDancers();
+    }
+});
+
+// Sync Dancers with Music
+function animateDancers() {
+    if (analyser) {
+        analyser.getByteFrequencyData(dataArray);
+        dancers.forEach((dancer, index) => {
+            const scale = dataArray[index % dataArray.length] / 128.0;
+            dancer.scale.set(scale, scale, scale); // Scale dancer based on music data
+        });
+    }
+
+    // Update the current time display
+    if (audio) {
+        const currentTimeDisplay = document.getElementById("currentTime");
+        const minutes = Math.floor(audio.currentTime / 60);
+        const seconds = Math.floor(audio.currentTime % 60);
+        currentTimeDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, "0")}`;
+    }
+
+    if (audio && !audio.paused) {
+        requestAnimationFrame(animateDancers);
+    }
+}
+
+// Animation Loop for Three.js
 function animate() {
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
