@@ -19,18 +19,27 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// Add a Test Cube
-const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
-const cube = new THREE.Mesh(geometry, material);
-cube.position.y = 0.5; // Adjust height
-scene.add(cube);
+// Add a GLTF Loader
+const loader = new THREE.GLTFLoader();
+
+// Load the model
+loader.load(
+    './models/female_base.glb',  // Ensure this path is correct
+    (gltf) => {
+        const model = gltf.scene;
+        model.scale.set(0.5, 0.5, 0.5); // Adjust size of the model
+        model.position.set(0, 0, 0); // Position model at the origin
+        scene.add(model); // Add the model to the scene
+    },
+    undefined,
+    (error) => {
+        console.error('Error loading model:', error);
+    }
+);
 
 // Animation Loop
 function animate() {
     requestAnimationFrame(animate);
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
     renderer.render(scene, camera);
 }
 animate();
