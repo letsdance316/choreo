@@ -3,24 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dance Choreography Tool</title>
-    <link rel="stylesheet" href="style.css"> <!-- Link to the stylesheet -->
+    <title>Dance Choreography</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        #ui {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1;
+        }
+        button {
+            margin: 5px;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
-    <div id="stage"></div> <!-- Where Three.js will render the 3D content -->
-    
-    <!-- Music Player and Time Display -->
-    <div id="controls">
-        <input type="file" id="audioFile" accept="audio/*" />
-        <button id="playButton">Play</button>
-        <button id="pauseButton">Pause</button>
-        <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+    <div id="ui">
+        <button id="addDancer">Add Dancer</button>
+        <button id="changeClothes">Change Clothes</button>
     </div>
-
-    <!-- Load the three.js library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r110/three.min.js"></script> <!-- Ensure the version matches what you're using -->
-
-    <!-- Link to your script.js -->
-    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r110/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r110/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="./script.js"></script>
 </body>
 </html>
