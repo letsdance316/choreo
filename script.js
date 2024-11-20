@@ -24,8 +24,9 @@ const loader = new THREE.GLTFLoader();
 
 // Load the model
 loader.load(
-    './models/female_base.glb',  // Ensure this path is correct
+    './models/female_base.glb',  // Make sure the path is correct
     (gltf) => {
+        console.log('Model Loaded:', gltf);  // Log the loaded model to check if it’s loaded correctly
         const model = gltf.scene;
         model.scale.set(0.5, 0.5, 0.5); // Adjust size of the model
         model.position.set(0, 0, 0); // Position model at the origin
