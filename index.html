@@ -3,22 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dance Choreography Tool</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Human-Like Dancer</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
+        button { font-size: 18px; }
+    </style>
 </head>
 <body>
-    <h1>Dance Choreography Tool</h1>
-    <div id="controls">
-        <button id="addDancer">Add Dancer</button>
-        <div>
-            <label for="audioFile">Upload Music:</label>
-            <input type="file" id="audioFile" accept="audio/*" />
-            <button id="playMusic">Play Music</button>
-            <span id="currentTime">0:00</span>
-        </div>
-    </div>
-    <div id="stage"></div>
+
+    <!-- Import Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r110/three.min.js"></script>
+
+    <!-- Link to your script.js -->
     <script src="script.js"></script>
+
 </body>
 </html>
